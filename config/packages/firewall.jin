@@ -7,6 +7,7 @@
 	;
 
 	aliases = {
+
 	}
 
 	;
@@ -17,7 +18,7 @@
 	;
 
 	delegates = [
-		; "Hiraeth\Middleware\FirewallDelegate"
+		"Hiraeth\Middleware\FirewallDelegate"
 	]
 
 	;
