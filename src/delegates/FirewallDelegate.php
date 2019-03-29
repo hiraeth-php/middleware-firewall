@@ -41,13 +41,12 @@ class FirewallDelegate implements Hiraeth\Delegate
 	 */
 	public function __invoke(Hiraeth\Broker $broker): object
 	{
-		$options  = $this->app->getConfig('web', 'middleware.options', []);
-
-		if (isset($options[static::getClass()])) {
-			$options = $options[static::getClass()] + $this->getDefaultOptions();
-		} else {
-			$options = $this->getDefaultOptions();
-		}
+		$middleware = $this->app->getConfig('*', 'middleware.class', NULL);
+		$collection = array_search(Firewall::class, $middleware);
+		$options    = $this->app->getConfig($collection, 'middleware', [
+			'whitelist' => [],
+			'blacklist' => []
+		]);
 
 		$firewall = new Firewall($options['whitelist']);
 
@@ -59,17 +58,5 @@ class FirewallDelegate implements Hiraeth\Delegate
 		$firewall->responseFactory($broker->make('Psr\Http\Message\ResponseFactoryInterface'));
 
 		return $firewall;
-	}
-
-
-	/**
-	 *
-	 */
-	public function getDefaultOptions()
-	{
-		return [
-			'whitelist' => [],
-			'blacklist' => []
-		];
 	}
 }
