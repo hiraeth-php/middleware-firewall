@@ -24,26 +24,17 @@ class FirewallDelegate implements Hiraeth\Delegate
 
 
 	/**
-	 *
-	 */
-	public function __construct(Hiraeth\Application $app)
-	{
-		$this->app = $app;
-	}
-
-
-	/**
 	 * Get the instance of the class for which the delegate operates.
 	 *
 	 * @access public
-	 * @param Hiraeth\Broker $broker The dependency injector instance
+	 * @param Hiraeth\Application $app The application instance for which the delegate operates
 	 * @return object The instance of the class for which the delegate operates
 	 */
-	public function __invoke(Hiraeth\Broker $broker): object
+	public function __invoke(Hiraeth\Application $app): object
 	{
-		$middleware = $this->app->getConfig('*', 'middleware.class', NULL);
+		$middleware = $app->getConfig('*', 'middleware.class', NULL);
 		$collection = array_search(Firewall::class, $middleware);
-		$options    = $this->app->getConfig($collection, 'middleware', [
+		$options    = $app->getConfig($collection, 'middleware', [
 			'whitelist' => [],
 			'blacklist' => []
 		]);
@@ -55,7 +46,7 @@ class FirewallDelegate implements Hiraeth\Delegate
 		}
 
 		$firewall->ipAttribute('client-ip');
-		$firewall->responseFactory($broker->make('Psr\Http\Message\ResponseFactoryInterface'));
+		$firewall->responseFactory($app->get('Psr\Http\Message\ResponseFactoryInterface'));
 
 		return $firewall;
 	}
