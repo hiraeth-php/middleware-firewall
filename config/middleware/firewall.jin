@@ -4,7 +4,7 @@
 	; Whether or not the middleware is disabled
 	;
 
-	disabled = true
+	disabled = false
 
 	;
 	; The priority for the middleware
