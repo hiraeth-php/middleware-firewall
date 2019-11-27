@@ -19,7 +19,7 @@
 	class = Middlewares\Firewall
 
 	;
-	;
+	; A list of IPs to whitelist
 	;
 
 	whitelist = [
@@ -28,7 +28,7 @@
 	]
 
 	;
-	;
+	; A list of IPs to blacklist
 	;
 
 	blacklist = [

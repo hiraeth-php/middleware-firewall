@@ -6,16 +6,12 @@ use Hiraeth;
 use Middlewares\Firewall;
 
 /**
- *
+ * {@inheritDoc}
  */
 class FirewallDelegate implements Hiraeth\Delegate
 {
 	/**
-	 * Get the class for which the delegate operates.
-	 *
-	 * @static
-	 * @access public
-	 * @return string The class for which the delegate operates
+	 * {@inheritDoc}
 	 */
 	static public function getClass(): string
 	{
@@ -24,11 +20,7 @@ class FirewallDelegate implements Hiraeth\Delegate
 
 
 	/**
-	 * Get the instance of the class for which the delegate operates.
-	 *
-	 * @access public
-	 * @param Hiraeth\Application $app The application instance for which the delegate operates
-	 * @return object The instance of the class for which the delegate operates
+	 * {@inheritDoc}
 	 */
 	public function __invoke(Hiraeth\Application $app): object
 	{
@@ -39,15 +31,15 @@ class FirewallDelegate implements Hiraeth\Delegate
 			'blacklist' => []
 		]);
 
-		$firewall = new Firewall($options['whitelist']);
+		$instance = new Firewall($options['whitelist']);
 
 		if ($options['blacklist']) {
-			$firewall->blacklist($options['blacklist']);
+			$instance->blacklist($options['blacklist']);
 		}
 
-		$firewall->ipAttribute('client-ip');
-		$firewall->responseFactory($app->get('Psr\Http\Message\ResponseFactoryInterface'));
+		$instance->ipAttribute('_client-ip');
+		$instance->responseFactory($app->get('Psr\Http\Message\ResponseFactoryInterface'));
 
-		return $firewall;
+		return $instance;
 	}
 }
