@@ -19,6 +19,12 @@
 	class = Middlewares\Firewall
 
 	;
+	; The attribute from which to read the client ip
+	;
+
+	attribute = _client_ip
+
+	;
 	; A list of IPs to whitelist
 	;
 

@@ -27,6 +27,7 @@ class FirewallDelegate implements Hiraeth\Delegate
 		$middleware = $app->getConfig('*', 'middleware.class', NULL);
 		$collection = array_search(Firewall::class, $middleware);
 		$options    = $app->getConfig($collection, 'middleware', [
+			'attribute' => '_client_ip',
 			'whitelist' => [],
 			'blacklist' => []
 		]);
@@ -37,7 +38,7 @@ class FirewallDelegate implements Hiraeth\Delegate
 			$instance->blacklist($options['blacklist']);
 		}
 
-		$instance->ipAttribute('_client-ip');
+		$instance->ipAttribute($options['attribute']);
 		$instance->responseFactory($app->get('Psr\Http\Message\ResponseFactoryInterface'));
 
 		return $instance;
