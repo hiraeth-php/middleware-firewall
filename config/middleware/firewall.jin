@@ -22,7 +22,7 @@
 	; The attribute from which to read the client ip
 	;
 
-	attribute = _client_ip
+	attribute = _client-ip
 
 	;
 	; A list of IPs to whitelist

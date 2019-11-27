@@ -27,7 +27,7 @@ class FirewallDelegate implements Hiraeth\Delegate
 		$middleware = $app->getConfig('*', 'middleware.class', NULL);
 		$collection = array_search(Firewall::class, $middleware);
 		$options    = $app->getConfig($collection, 'middleware', [
-			'attribute' => '_client_ip',
+			'attribute' => '_client-ip',
 			'whitelist' => [],
 			'blacklist' => []
 		]);
