@@ -8,8 +8,18 @@ use Middlewares\Firewall;
 /**
  * {@inheritDoc}
  */
-class FirewallDelegate implements Hiraeth\Delegate
+class FirewallDelegate extends AbstractDelegate
 {
+	/**
+	 * {@inheritDoc}
+	 */
+	static protected $defaultOptions = [
+		'attribute' => '_client-ip',
+		'whitelist' => [],
+		'blacklist' => []
+	];
+
+
 	/**
 	 * {@inheritDoc}
 	 */
@@ -24,14 +34,7 @@ class FirewallDelegate implements Hiraeth\Delegate
 	 */
 	public function __invoke(Hiraeth\Application $app): object
 	{
-		$middleware = $app->getConfig('*', 'middleware.class', NULL);
-		$collection = array_search(Firewall::class, $middleware);
-		$options    = $app->getConfig($collection, 'middleware', [
-			'attribute' => '_client-ip',
-			'whitelist' => [],
-			'blacklist' => []
-		]);
-
+		$options  = $this->getOptions();
 		$instance = new Firewall($options['whitelist']);
 
 		if ($options['blacklist']) {
