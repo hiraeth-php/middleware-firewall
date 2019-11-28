@@ -18,25 +18,27 @@
 
 	class = Middlewares\Firewall
 
-	;
-	; The attribute from which to read the client ip
-	;
+	[&.options]
 
-	attribute = _client-ip
+		;
+		; The attribute from which to read the client ip
+		;
 
-	;
-	; A list of IPs to whitelist
-	;
+		attribute = _client-ip
 
-	whitelist = [
-		"::/0",
-		"0.0.0.0/0"
-	]
+		;
+		; A list of IPs to whitelist
+		;
 
-	;
-	; A list of IPs to blacklist
-	;
+		whitelist = [
+			"::/0",
+			"0.0.0.0/0"
+		]
 
-	blacklist = [
+		;
+		; A list of IPs to blacklist
+		;
 
-	]
+		blacklist = [
+
+		]
