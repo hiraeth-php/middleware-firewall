@@ -14,7 +14,8 @@
     "require": {
         "hiraeth/app": "^2.0",
         "middlewares/firewall": "^1.0",
-        "hiraeth/middleware-imp": "^1.0"
+        "hiraeth/middleware-imp": "^1.0",
+        "hiraeth/middleware-client-ip": "^1.0"
     },
     "require-dev": {
         "phpstan/phpstan": "^0.11.19",
